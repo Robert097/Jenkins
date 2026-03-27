@@ -56,8 +56,7 @@ pipeline {
               https://jcarrete.atlassian.net/rest/api/3/issue/NOTES-58/comment
             """
         }
-    }
-}        
+    }       
 
     failure {
         echo 'Build FAILED'
@@ -76,4 +75,4 @@ pipeline {
             """
         }
     }
-}
+    }
