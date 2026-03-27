@@ -52,7 +52,7 @@ pipeline {
             curl -X POST ^
               -u %JIRA_USER%:%JIRA_TOKEN% ^
               -H "Content-Type: application/json" ^
-              --data "{\\"body\\": \\"Build SUCCESS from Jenkins\\"}" ^
+              --data "{\\"body\\":{\\"type\\":\\"doc\\",\\"version\\":1,\\"content\\":[{\\"type\\":\\"paragraph\\",\\"content\\":[{\\"type\\":\\"text\\",\\"text\\":\\"Build SUCCESS from Jenkins\\"}]}]}}" ^
               https://jcarrete.atlassian.net/rest/api/3/issue/NOTES-58/comment
             """
         }
@@ -70,7 +70,7 @@ pipeline {
             curl -X POST ^
               -u %JIRA_USER%:%JIRA_TOKEN% ^
               -H "Content-Type: application/json" ^
-              --data "{\\"body\\": \\"Build FAILED from Jenkins\\"}" ^
+              --data "{\\"body\\":{\\"type\\":\\"doc\\",\\"version\\":1,\\"content\\":[{\\"type\\":\\"paragraph\\",\\"content\\":[{\\"type\\":\\"text\\",\\"text\\":\\"Build FAILED from Jenkins\\"}]}]}}" ^
               https://jcarrete.atlassian.net/rest/api/3/issue/NOTES-58/comment
             """
         }
