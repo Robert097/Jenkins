@@ -40,12 +40,39 @@ pipeline {
     }
 
     post {
-        success {
-            echo 'Build SUCCESS'
-        }
+    success {
+        echo 'Build SUCCESS'
 
-        failure {
-            echo 'Build FAILED'
+        withCredentials([usernamePassword(
+            credentialsId: 'jira-creds',
+            usernameVariable: 'JIRA_USER',
+            passwordVariable: 'JIRA_TOKEN'
+        )]) {
+            bat """
+            curl -X POST ^
+              -u %JIRA_USER%:%JIRA_TOKEN% ^
+              -H "Content-Type: application/json" ^
+              --data "{\\"body\\": \\"Build SUCCESS from Jenkins\\"}" ^
+              https://jcarrete.atlassian.net/rest/api/3/issue/NOTES-58/comment
+            """
+        }
+    }
+
+    failure {
+        echo 'Build FAILED'
+
+        withCredentials([usernamePassword(
+            credentialsId: 'jira-creds',
+            usernameVariable: 'JIRA_USER',
+            passwordVariable: 'JIRA_TOKEN'
+        )]) {
+            bat """
+            curl -X POST ^
+              -u %JIRA_USER%:%JIRA_TOKEN% ^
+              -H "Content-Type: application/json" ^
+              --data "{\\"body\\": \\"Build FAILED from Jenkins\\"}" ^
+              https://jcarrete.atlassian.net/rest/api/3/issue/NOTES-58/comment
+            """
         }
     }
 }
